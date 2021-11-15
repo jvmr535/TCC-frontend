@@ -28,6 +28,7 @@
     "no-use-before-define": "off",
     "camelcase": "off",
     "prettier/prettier": "error",
+    "react/prop-types": "off",
     "import/extensions": [
       "error",
       "ignorePackages",
