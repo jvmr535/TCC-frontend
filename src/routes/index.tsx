@@ -1,32 +1,40 @@
-import React from 'react';
+import React from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { ThemeProvider } from "@mui/material/styles";
+import theme from "../styles/theme";
 
-import { Switch, Route, BrowserRouter } from 'react-router-dom';
-import { ThemeProvider } from '@material-ui/styled-engine-sc';
-import { ToastContainer } from 'react-toastify';
-import Login from '../pages/Login';
+import Home from "../pages/Home";
+import SignIn from "../pages/SignIn";
+import Header from "../components/Header";
+import authContext from "../context/AuthenticationContext";
 
-import Home from '../pages/Home';
-import NotFound from '../pages/NotFound';
-import { isAuthenticated } from '../services/auth';
-import { theme } from '../styles/theme';
+const AppRoutes: React.FC = () => {
+  const [auth] = authContext.useAuthenticationContext();
 
-const Routes: React.FC = () => {
+  const routesWithAuth = (
+    <>
+      <Routes>
+        <Route path="/" element={<SignIn />} />
+      </Routes>
+    </>
+  );
+
+  const routesWithoutAuth = (
+    <>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+      </Routes>
+    </>
+  );
+
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
-        <Switch>
-          {isAuthenticated() && (
-            <>
-              <Route path="/" exact component={Home} />
-            </>
-          )}
-          <Route path="/" exact component={Login} />
-          <Route path="/" component={NotFound} />
-        </Switch>
+        {!auth.token ? routesWithAuth : routesWithoutAuth}
       </BrowserRouter>
-      <ToastContainer />
     </ThemeProvider>
   );
 };
 
-export default Routes;
+export default AppRoutes;

@@ -1,10 +1,22 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-export const TOKEN_KEY = '@enemxp:token';
+const TOKEN_KEY = "@enemxp:token";
 
-export const getToken = () => localStorage.getItem(TOKEN_KEY);
+class Authentication {
+  token: string = TOKEN_KEY;
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const login = (data: any) => localStorage.setItem(TOKEN_KEY, data.body);
+  constructor(token: string) {
+    this.token = token;
+  }
 
-export const logout = () => localStorage.removeItem(TOKEN_KEY);
-export const isAuthenticated = () => localStorage.getItem(TOKEN_KEY) !== null;
+  public getToken = () => localStorage.getItem(this.token);
+
+  public login = (data: any) => {
+    localStorage.setItem(this.token, data.body);
+  };
+  public logout = () => {
+    localStorage.removeItem(this.token);
+  };
+
+  public isAuthenticated = () => localStorage.getItem(this.token) !== null;
+}
+
+export default new Authentication(TOKEN_KEY);

@@ -1,17 +1,11 @@
-import React from 'react';
-import { Router } from 'react-router-dom';
-
-import Routes from './routes';
-import history from './services/history';
-import GlobalStyles from './styles/global';
+import authContext from "./context/AuthenticationContext";
+import AppRoutes from "./routes";
 
 const App: React.FC = () => {
   return (
-    <>
-      <Router history={history}>
-        <Routes />
-      </Router>
-    </>
+    <authContext.AuthenticationContext>
+      <AppRoutes />
+    </authContext.AuthenticationContext>
   );
 };
 
