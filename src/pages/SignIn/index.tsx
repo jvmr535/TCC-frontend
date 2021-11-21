@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { toast } from "react-toastify";
 import { ILogin } from "../../interfaces";
+import api from "../../services/api";
 import Authentication from "../../services/auth";
 import authContext from "../../context/AuthenticationContext";
 
@@ -11,14 +13,10 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import api from "../../services/api";
 
 const SignIn: React.FC = () => {
-  const [auth, setAuthenticationContext] =
-    authContext.useAuthenticationContext();
-  useEffect(() => {
-    console.log(auth);
-  }, [auth]);
+  const [, setAuthenticationContext] = authContext.useAuthenticationContext();
+
   const [loginCredentials, setLoginCredentials] = useState<ILogin>({
     username: "",
     password: "",

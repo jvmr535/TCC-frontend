@@ -1,10 +1,20 @@
 import React from "react";
+import SubjectCard from "../../components/SubjectCard";
+import subjects from "../../utils/subjects";
+
+import { Container } from "@mui/material";
 
 const Home: React.FC = () => {
   return (
-    <>
-      <h1>Bem vindo</h1>
-    </>
+    <Container>
+      {subjects.map((subject) => (
+        <SubjectCard
+          subjectNameInPortuguese={subject.subjectNameInPortuguese}
+          subjectNameInEnglish={subject.subjectNameInEnglish}
+          imageSource={subject.imageSource}
+        />
+      ))}
+    </Container>
   );
 };
 
