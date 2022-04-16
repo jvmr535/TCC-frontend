@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { toast } from "react-toastify";
 import { ILogin } from "../../interfaces";
 import api from "../../services/api";
 import Authentication from "../../services/auth";

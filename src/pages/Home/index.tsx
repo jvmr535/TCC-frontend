@@ -1,20 +1,19 @@
 import React from "react";
-import SubjectCard from "../../components/SubjectCard";
-import subjects from "../../utils/subjects";
+import Subjects from "../../components/Subjecs";
+import { colorPalette } from "../../styles/colorPalette";
 
-import { Container } from "@mui/material";
+import { HomeContainer, OpenModalButton } from "./styles";
 
 const Home: React.FC = () => {
   return (
-    <Container>
-      {subjects.map((subject) => (
-        <SubjectCard
-          subjectNameInPortuguese={subject.subjectNameInPortuguese}
-          subjectNameInEnglish={subject.subjectNameInEnglish}
-          imageSource={subject.imageSource}
-        />
-      ))}
-    </Container>
+    <HomeContainer>
+      <OpenModalButton>Gerar simulado</OpenModalButton>
+      <Subjects
+        colorHex={colorPalette.primary.natural}
+        width="100"
+        height="100"
+      />
+    </HomeContainer>
   );
 };
 
