@@ -7,4 +7,5 @@ export interface IIconCustomProps {
   colorHex: string;
   width: string;
   height: string;
+  isQuizGeneration?: boolean;
 }

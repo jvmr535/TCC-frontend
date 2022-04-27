@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components";
+import { colorPalette } from "./colorPalette";
 
 export default createGlobalStyle`
   * {
@@ -8,5 +9,9 @@ export default createGlobalStyle`
     font-family: 'Montserrat', sans-serif;
     text-decoration: none !important;
     outline: 0 !important;
+  }
+
+  body {
+    background-color: ${colorPalette.primary.dark};
   }
 `;

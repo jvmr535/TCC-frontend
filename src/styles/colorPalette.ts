@@ -1,10 +1,10 @@
 import { rgba } from "polished";
 
 export const colors = {
-  primary: "#F6C667",
-  secondary: "#B30753",
-  tertiary: "#280F34",
-  quaternary: "#BFF4ED",
+  primary: "#90adc6",
+  secondary: "#e9eaec",
+  tertiary: "#333652",
+  quaternary: "#fad02c",
   black: "#000000",
   white: "#FFFFFF",
   darkGray: "#454545",

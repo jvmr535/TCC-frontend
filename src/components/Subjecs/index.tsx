@@ -11,7 +11,12 @@ import SpanishIcon from "./SubjectIcons/SpanishIcon";
 import { SubjectContainer } from "./styles";
 import { IIconCustomProps } from "../../interfaces";
 
-const Subjects: React.FC<IIconCustomProps> = ({ colorHex, width, height }) => {
+const Subjects: React.FC<IIconCustomProps> = ({
+  colorHex,
+  width,
+  height,
+  isQuizGeneration,
+}) => {
   const subjects: Array<ISubjectCard> = [
     {
       imageSource: (
@@ -64,6 +69,7 @@ const Subjects: React.FC<IIconCustomProps> = ({ colorHex, width, height }) => {
           subjectNameInPortuguese={subject.subjectNameInPortuguese}
           subjectNameInEnglish={subject.subjectNameInEnglish}
           imageSource={subject.imageSource}
+          isQuizGeneration={isQuizGeneration}
         />
       ))}
     </SubjectContainer>
