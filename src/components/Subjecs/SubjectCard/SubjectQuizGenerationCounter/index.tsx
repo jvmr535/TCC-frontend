@@ -1,75 +1,50 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
-import Badge from "@mui/material/Badge";
+import React, { useState } from "react";
 import ButtonGroup from "@mui/material/ButtonGroup";
-import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
-import MailIcon from "@mui/icons-material/Mail";
-import Switch from "@mui/material/Switch";
-import FormControlLabel from "@mui/material/FormControlLabel";
+import { SubjectQuizGenerationCounterBox } from "./styles";
 
-const SubjectQuizGenerationCounter: React.FC = () => {
-  const [count, setCount] = React.useState(1);
-  const [invisible, setInvisible] = React.useState(false);
+import { AddButton, RemoveButton, SubjectNumberCount } from "./styles";
+import quizQuestionsAmountContext from "../../../../context/QuizQuestionsAmountContext";
+import { Typography } from "@mui/material";
 
-  const handleSubjectQuizGenerationCounter = () => {
-    setInvisible(!invisible);
+interface ISubjectQuizGenerationCounter {
+  subjectNameInEnglish: string;
+}
+
+const SubjectQuizGenerationCounter: React.FC<ISubjectQuizGenerationCounter> = ({
+  subjectNameInEnglish,
+}) => {
+  const [
+    quizQuestionsAmountContextContext,
+    setQuizQuestionsAmountContextContext,
+  ] = quizQuestionsAmountContext.useQuizQuestionsAmountContext();
+
+  const handleClick = (isAdd: boolean) => {
+    setQuizQuestionsAmountContextContext({
+      ...quizQuestionsAmountContextContext,
+      [subjectNameInEnglish]: isAdd
+        ? quizQuestionsAmountContextContext[subjectNameInEnglish] + 1
+        : quizQuestionsAmountContextContext[subjectNameInEnglish] - 1,
+    });
   };
 
   return (
-    <Box
-      sx={{
-        color: "action.active",
-        display: "flex",
-        flexDirection: "column",
-        "& > *": {
-          marginBottom: 2,
-        },
-        "& .MuiBadge-root": {
-          marginRight: 4,
-        },
-      }}
-    >
-      <div>
-        <Badge color="secondary" badgeContent={count}>
-          <MailIcon />
-        </Badge>
-        <ButtonGroup>
-          <Button
-            aria-label="reduce"
-            onClick={() => {
-              setCount(Math.max(count - 1, 0));
-            }}
-          >
-            <RemoveIcon fontSize="small" />
-          </Button>
-          <Button
-            aria-label="increase"
-            onClick={() => {
-              setCount(count + 1);
-            }}
-          >
-            <AddIcon fontSize="small" />
-          </Button>
-        </ButtonGroup>
-      </div>
-      <div>
-        <Badge color="secondary" variant="dot" invisible={invisible}>
-          <MailIcon />
-        </Badge>
-        <FormControlLabel
-          sx={{ color: "text.primary" }}
-          control={
-            <Switch
-              checked={!invisible}
-              onChange={handleSubjectQuizGenerationCounter}
-            />
-          }
-          label="Show Badge"
-        />
-      </div>
-    </Box>
+    <SubjectQuizGenerationCounterBox>
+      <ButtonGroup>
+        <RemoveButton onClick={() => handleClick(false)}>
+          <RemoveIcon fontSize="small" />
+        </RemoveButton>
+      </ButtonGroup>
+      <Typography>
+        {quizQuestionsAmountContextContext[subjectNameInEnglish]}
+      </Typography>
+      <ButtonGroup>
+        <AddButton onClick={() => handleClick(true)}>
+          <AddIcon fontSize="small" />
+        </AddButton>
+      </ButtonGroup>
+    </SubjectQuizGenerationCounterBox>
   );
 };
 

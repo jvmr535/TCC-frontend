@@ -9,9 +9,11 @@ const Home: React.FC = () => {
     <HomeContainer>
       <Subjects
         colorHex={colorPalette.tertiary.dark}
-        width="100"
-        height="100"
+        width="100px"
+        height="100px"
         isQuizGeneration={false}
+        minCardHeight="17vh"
+        minCardWidth="17vw"
       />
     </HomeContainer>
   );

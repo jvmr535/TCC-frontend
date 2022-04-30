@@ -1,5 +1,5 @@
 import React from "react";
-import SubjectCard, { ISubjectCard } from "./SubjectCard";
+import SubjectCard from "./SubjectCard";
 
 import EnglishIcon from "./SubjectIcons/EnglishIcon";
 import HumanSciencesIcon from "./SubjectIcons/HumanSciencesIcon";
@@ -9,13 +9,15 @@ import PortugueseIcon from "./SubjectIcons/PortugueseIcon";
 import SpanishIcon from "./SubjectIcons/SpanishIcon";
 
 import { SubjectContainer } from "./styles";
-import { IIconCustomProps } from "../../interfaces";
+import { IIconCustomProps, ISubjectCard } from "../../interfaces";
 
 const Subjects: React.FC<IIconCustomProps> = ({
   colorHex,
   width,
   height,
   isQuizGeneration,
+  minCardWidth,
+  minCardHeight,
 }) => {
   const subjects: Array<ISubjectCard> = [
     {
@@ -70,6 +72,8 @@ const Subjects: React.FC<IIconCustomProps> = ({
           subjectNameInEnglish={subject.subjectNameInEnglish}
           imageSource={subject.imageSource}
           isQuizGeneration={isQuizGeneration}
+          minCardWidth={minCardWidth}
+          minCardHeight={minCardHeight}
         />
       ))}
     </SubjectContainer>

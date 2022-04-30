@@ -13,7 +13,7 @@ apiAddress.interceptors.request.use(async (config) => {
     config.headers = {
       Authorization: `Bearer ${token}`,
       Accept: "application/json",
-      "Content-Type": "application/x-www-form-urlencoded",
+      "Content-Type": "application/json",
     };
     return config;
   }
@@ -21,11 +21,17 @@ apiAddress.interceptors.request.use(async (config) => {
 });
 
 const api = {
-  async login(loginCredentials: ILogin): Promise<ILogin> {
+  async login(loginCredentials: any): Promise<any> {
+    console.log("login", loginCredentials);
     return (await apiAddress.post("/session", loginCredentials)).data;
   },
   async getExerciseAmount(subjectName: string): Promise<any> {
     return (await apiAddress.get(`/exercise/exercisesAmount/${subjectName}`))
+      .data;
+  },
+  async getGenerateQuiz(quizSubjectsAmout: any): Promise<any> {
+    console.log("teste", quizSubjectsAmout);
+    return (await apiAddress.post("/exercise/generateQuiz/", quizSubjectsAmout))
       .data;
   },
 };

@@ -1,6 +1,7 @@
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import quizQuestionsAmountContext from "../../../context/QuizQuestionsAmountContext";
+import { ISubjectCard } from "../../../interfaces";
 import api from "../../../services/api";
 
 import {
@@ -9,31 +10,19 @@ import {
   SubjectButton,
   SubjectCardActions,
   SubjectCardContent,
+  ExerciseAmount,
 } from "./styles";
-
-export interface ISubjectCard {
-  subjectNameInPortuguese: string;
-  subjectNameInEnglish: string;
-  imageSource: React.ReactNode;
-  isQuizGeneration?: boolean;
-}
+import SubjectQuizGenerationCounter from "./SubjectQuizGenerationCounter";
 
 const SubjectCard: React.FC<ISubjectCard> = ({
   subjectNameInPortuguese,
   subjectNameInEnglish,
   imageSource,
   isQuizGeneration,
+  minCardWidth,
+  minCardHeight,
 }) => {
   const [exerciseAmount, setExerciseAmount] = useState<number | null>(null);
-
-  const [
-    quizQuestionsAmountContextContext,
-    setQuizQuestionsAmountContextContext,
-  ] = quizQuestionsAmountContext.useQuizQuestionsAmountContext();
-
-  useEffect(() => {
-    console.log(quizQuestionsAmountContextContext);
-  }, [quizQuestionsAmountContextContext]);
 
   useEffect(() => {
     const getExerciseAmount = async () => {
@@ -47,23 +36,23 @@ const SubjectCard: React.FC<ISubjectCard> = ({
     getExerciseAmount();
   }, [exerciseAmount, subjectNameInEnglish]);
 
-  const handleClick = () => {
-    setQuizQuestionsAmountContextContext({
-      ...quizQuestionsAmountContextContext,
-      [subjectNameInEnglish]:
-        quizQuestionsAmountContextContext[subjectNameInEnglish] + 1,
-    });
-  };
-
   return (
-    <SubjectCardContainer>
+    <SubjectCardContainer
+      minCardWidth={minCardWidth}
+      minCardHeight={minCardHeight}
+    >
       <SubjectCardHeader title={subjectNameInPortuguese} />
+      {isQuizGeneration ? (
+        <ExerciseAmount>Disponíveis: {exerciseAmount}</ExerciseAmount>
+      ) : null}
       <SubjectCardContent>{imageSource}</SubjectCardContent>
       <SubjectCardActions>
         {!isQuizGeneration ? (
           <SubjectButton size="small">Detalhes</SubjectButton>
         ) : (
-          <Button onClick={handleClick}>Adicionar</Button>
+          <SubjectQuizGenerationCounter
+            subjectNameInEnglish={subjectNameInEnglish}
+          />
         )}
       </SubjectCardActions>
     </SubjectCardContainer>

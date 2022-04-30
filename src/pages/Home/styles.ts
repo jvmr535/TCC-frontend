@@ -8,5 +8,5 @@ export const HomeContainer = styled(Container)`
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-evenly;
-  margin-top: 10px;
+  margin-top: 70px;
 `;
