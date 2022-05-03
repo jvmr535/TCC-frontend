@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Authentication from "../../services/auth";
 
 interface IAuthenticationContext {
@@ -18,7 +18,8 @@ const useAuthenticationContext = () => {
 
 const AuthenticationContext = ({ children }: { children: any }) => {
   const [contextObject, setContextObject] = useState<IAuthenticationContext>({
-    token: Authentication.getToken(),
+    // token: Authentication.getToken(),
+    token: "",
   });
 
   const updateContextObject = (value: IAuthenticationContext) => {

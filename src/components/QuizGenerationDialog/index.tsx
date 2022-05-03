@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 
@@ -12,6 +13,7 @@ import {
 import { colorPalette } from "../../styles/colorPalette";
 import Subjects from "../Subjecs";
 import quizQuestionsAmountContext from "../../context/QuizQuestionsAmountContext";
+import quizExercisesContext from "../../context/QuizExercisesContext";
 
 interface IQuizGenerationDialog {
   open: boolean;
@@ -22,21 +24,27 @@ const QuizGenerationDialog: React.FC<IQuizGenerationDialog> = ({
   open,
   setOpen,
 }) => {
+  const navigate = useNavigate();
+
+  const [, setQuizExercises] = quizExercisesContext.useQuizExercisesContext();
+
   const handleClose = () => {
     setOpen(false);
   };
 
-  const [quizQuestionsAmountContextContext] =
+  const [quizQuestionsAmount] =
     quizQuestionsAmountContext.useQuizQuestionsAmountContext();
 
   const handleGenerateQuiz = async () => {
     try {
-      const response = await api.getGenerateQuiz(
-        quizQuestionsAmountContextContext
+      const { body: exercises } = await api.getGenerateQuiz(
+        quizQuestionsAmount
       );
+      setQuizExercises(exercises);
+      navigate("/quiz");
       setOpen(false);
     } catch (error) {
-      console.log("Deu errado!");
+      console.log(error);
     }
   };
 
@@ -64,7 +72,7 @@ const QuizGenerationDialog: React.FC<IQuizGenerationDialog> = ({
         <DialogActions>
           <GenerateQuizButton
             variant="contained"
-            onClick={handleGenerateQuiz}
+            onClick={() => handleGenerateQuiz()}
             autoFocus
           >
             Continuar

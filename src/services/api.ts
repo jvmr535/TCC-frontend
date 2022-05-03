@@ -22,7 +22,6 @@ apiAddress.interceptors.request.use(async (config) => {
 
 const api = {
   async login(loginCredentials: any): Promise<any> {
-    console.log("login", loginCredentials);
     return (await apiAddress.post("/session", loginCredentials)).data;
   },
   async getExerciseAmount(subjectName: string): Promise<any> {
@@ -30,7 +29,6 @@ const api = {
       .data;
   },
   async getGenerateQuiz(quizSubjectsAmout: any): Promise<any> {
-    console.log("teste", quizSubjectsAmout);
     return (await apiAddress.post("/exercise/generateQuiz/", quizSubjectsAmout))
       .data;
   },

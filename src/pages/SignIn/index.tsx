@@ -31,8 +31,9 @@ const SignIn: React.FC = () => {
 
   const handleSubmit = async () => {
     try {
-      Authentication.login(await api.login(loginCredentials));
-      setAuthenticationContext({ token: Authentication.getToken() });
+      const { body: token } = await api.login(loginCredentials);
+      Authentication.login(token);
+      setAuthenticationContext({ token });
     } catch (error) {}
   };
 

@@ -10,7 +10,7 @@ class Authentication {
   public getToken = () => localStorage.getItem(this.token);
 
   public login = (data: any) => {
-    localStorage.setItem(this.token, data.body);
+    localStorage.setItem(this.token, data);
   };
   public logout = () => {
     localStorage.removeItem(this.token);

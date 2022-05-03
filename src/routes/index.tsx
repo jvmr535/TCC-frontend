@@ -7,11 +7,13 @@ import Home from "../pages/Home";
 import SignIn from "../pages/SignIn";
 import Header from "../components/Header";
 import authContext from "../context/AuthenticationContext";
+import Quiz from "../pages/Quiz";
+import quizExercisesContext from "../context/QuizExercisesContext";
 
 const AppRoutes: React.FC = () => {
   const [auth] = authContext.useAuthenticationContext();
 
-  const routesWithAuth = (
+  const routesWithoutAuth = (
     <>
       <Routes>
         <Route path="/" element={<SignIn />} />
@@ -19,20 +21,21 @@ const AppRoutes: React.FC = () => {
     </>
   );
 
-  const routesWithoutAuth = (
-    <>
+  const routesWithAuth = (
+    <quizExercisesContext.QuizExercisesContext>
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/quiz" element={<Quiz />} />
       </Routes>
-    </>
+    </quizExercisesContext.QuizExercisesContext>
   );
 
   return (
     <>
       <GlobalTheme />
       <BrowserRouter>
-        {!auth.token ? routesWithAuth : routesWithoutAuth}
+        {auth.token ? routesWithAuth : routesWithoutAuth}
         <ToastContainer />
       </BrowserRouter>
     </>

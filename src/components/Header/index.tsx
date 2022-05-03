@@ -11,10 +11,14 @@ import StudentIcon from "../../assets/icons/StudentIcon";
 import { colorPalette } from "../../styles/colorPalette";
 import QuizGenerationDialog from "../QuizGenerationDialog";
 import quizQuestionsAmountContext from "../../context/QuizQuestionsAmountContext";
+import quizExercisesContext from "../../context/QuizExercisesContext";
+import { useNavigate } from "react-router";
 
 const pages = ["Home", "Resultados", "Colabore"];
 
 const Header: React.FC = () => {
+  const navigate = useNavigate();
+
   const [, setAuthenticationContext] = authContext.useAuthenticationContext();
 
   const [openQuizGenerationDialog, setOpenQuizGenerationDialog] =
@@ -23,6 +27,7 @@ const Header: React.FC = () => {
   const handleLogout = () => {
     Authentication.logout();
     setAuthenticationContext({ token: null });
+    navigate("/");
   };
 
   const handleOpenQuizGenerationDialog = () => {
