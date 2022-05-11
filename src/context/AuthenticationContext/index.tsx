@@ -18,8 +18,8 @@ const useAuthenticationContext = () => {
 
 const AuthenticationContext = ({ children }: { children: any }) => {
   const [contextObject, setContextObject] = useState<IAuthenticationContext>({
-    // token: Authentication.getToken(),
-    token: "",
+    token: Authentication.getToken(),
+    // token: "",
   });
 
   const updateContextObject = (value: IAuthenticationContext) => {

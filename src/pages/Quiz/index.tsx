@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Image } from "./styles";
 
 import { Container } from "@mui/material/";
@@ -6,10 +6,6 @@ import quizExercisesContext from "../../context/QuizExercisesContext";
 
 const Quiz: React.FC = () => {
   const [quizExercises] = quizExercisesContext.useQuizExercisesContext();
-
-  useEffect(() => {
-    console.log(quizExercises);
-  }, [quizExercises]);
 
   return (
     <Container>
