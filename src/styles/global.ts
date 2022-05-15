@@ -12,6 +12,6 @@ export default createGlobalStyle`
   }
 
   body {
-    background-color: ${colorPalette.tertiary.dark};
+    background-color: ${colorPalette.white};
   }
 `;

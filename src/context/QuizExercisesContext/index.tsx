@@ -26,7 +26,7 @@ const QuizExercisesContext = ({ children }: { children: any }) => {
   );
 
   const updateContextObject = (value: any) => {
-    setContextObject([value]);
+    setContextObject(value);
   };
 
   return (
