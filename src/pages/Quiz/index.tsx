@@ -1,47 +1,62 @@
 import React, { useEffect, useState } from "react";
-import { Image } from "./styles";
-
-import quizExercisesContext from "../../context/QuizExercisesContext";
-
 import { QuizContainer } from "./styles";
-import { Pagination } from "@mui/material";
+
+import api from "../../services/api";
+import quizExercisesContext from "../../context/QuizExercisesContext";
+import { Pagination, Stack } from "@mui/material";
+
+interface IExercise{
+  _id: string;
+  reference: string;
+  subject: string;
+  exerciseFileToBas64: string;
+  rightAnswer: string;
+}
+
+interface IQuizManagement{
+  page: number;
+  exercise: string;
+  answer: string;
+}
 
 const Quiz: React.FC = () => {
   const [quizExercises] = quizExercisesContext.useQuizExercisesContext();
-
-  const [quiz, setQuiz] = useState<any[]>([]);
-
-  const [pagination, setPagination] = useState({
-    currentPage: 0,
-    totalPages: 1,
-  });
+  const [page, setPage] = useState(1);
+  const [exercise, setExercise] = useState<IExercise>({
+    _id: '',
+    reference: '',
+    subject: '',
+    exerciseFileToBas64: '',
+    rightAnswer: ''
+  })
+  
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
-    setPagination({ ...pagination, currentPage: value });
+    setPage(value);
   };
 
-  useEffect(() => {
-    quizExercises.forEach((exercise: any) => {
-      setQuiz((oldArray) => [
-        ...oldArray,
-        { ...exercise, answer: "", isResolved: true },
-      ]);
-    });
-    console.log(quiz);
-  }, []);
+  useEffect(()=> {
+    const fetchExercise = async() => {
+      const response = await api.getExercise(
+        quizExercises[page - 1]
+      );
+      console.log(quizExercises[page - 1])
+      console.log(response.body.exerciseFileToBas64)
+      setExercise(response.body);
+    }
+    fetchExercise();
+  },[page])
 
   return (
     <QuizContainer>
-      {/* {quiz.map((exercise) => ( */}
-      {/* <Image
-        src={`data:image/png;base64, ${quiz[1].exerciseFileToBas64}`}
-        alt="Red dot"
-      /> */}
-      {/* ))} */}
-      <Pagination
-        count={pagination.totalPages}
-        page={pagination.currentPage}
-        onChange={handleChange}
-      />
+      <Stack spacing={2}>
+        <img 
+          src={`data:image/png;base64, ${exercise.exerciseFileToBas64}`} 
+          alt="" />
+        <Pagination 
+          count={quizExercises.length} 
+          page={page} color="primary" 
+          onChange={handleChange}/>
+      </Stack>
     </QuizContainer>
   );
 };

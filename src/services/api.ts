@@ -32,6 +32,10 @@ const api = {
     return (await apiAddress.post("/exercise/generateQuiz/", quizSubjectsAmout))
       .data;
   },
+  async getExercise(exerciseId: string): Promise<any> {
+    return (await apiAddress.post(`/exercise/${exerciseId}/`))
+      .data;
+  },
 };
 
 export default api;
