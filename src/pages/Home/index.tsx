@@ -1,16 +1,12 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router";
-import { OpenModalButton } from "../../components/Header/styles";
 import QuizGenerationDialog from "../../components/QuizGenerationDialog";
 import Subjects from "../../components/Subjecs";
 import quizQuestionsAmountContext from "../../context/QuizQuestionsAmountContext";
 import { colorPalette } from "../../styles/colorPalette";
 
-import { HomeContainer } from "./styles";
+import { HomeContainer, OpenModalButton } from "./styles";
 
 const Home: React.FC = () => {
-  const navigate = useNavigate();
-
   const [openQuizGenerationDialog, setOpenQuizGenerationDialog] =
     useState<boolean>(false);
 
@@ -38,7 +34,6 @@ const Home: React.FC = () => {
         />
       </HomeContainer>
     </quizQuestionsAmountContext.QuizQuestionsAmountContext>
-
   );
 };
 

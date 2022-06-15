@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
-import { Container } from "@mui/material/";
+import { Button, Container } from "@mui/material/";
+import { colorPalette } from "../../styles/colorPalette";
 
 export const HomeContainer = styled(Container)`
   display: flex;
@@ -9,4 +10,13 @@ export const HomeContainer = styled(Container)`
   align-items: center;
   justify-content: space-evenly;
   margin-top: 70px;
+`;
+
+export const OpenModalButton = styled(Button)`
+  color: ${colorPalette.secondary.dark};
+  background-color: ${colorPalette.primary.natural};
+
+  &:hover {
+    background-color: ${colorPalette.primary.dark};
+  }
 `;

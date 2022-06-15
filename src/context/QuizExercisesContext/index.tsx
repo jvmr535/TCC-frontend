@@ -2,10 +2,6 @@ import React, { useContext, useState } from "react";
 
 interface IQuizExercisesContext {
   _id: string;
-  reference: string;
-  subject: string;
-  exerciseFileToBas64: string;
-  rightAnswer: string;
 }
 
 const QuizExercisesWrapper = React.createContext<
@@ -26,7 +22,7 @@ const QuizExercisesContext = ({ children }: { children: any }) => {
   );
 
   const updateContextObject = (value: any) => {
-    setContextObject([value]);
+    setContextObject(value);
   };
 
   return (

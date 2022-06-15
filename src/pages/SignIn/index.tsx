@@ -4,11 +4,12 @@ import api from "../../services/api";
 import Authentication from "../../services/auth";
 import authContext from "../../context/AuthenticationContext";
 
+import { SignInBox } from "./styles";
+
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
@@ -40,14 +41,7 @@ const SignIn: React.FC = () => {
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-      <Box
-        sx={{
-          marginTop: 8,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
+      <SignInBox>
         <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
           <LockOutlinedIcon />
         </Avatar>
@@ -85,7 +79,7 @@ const SignIn: React.FC = () => {
         >
           Entrar
         </Button>
-      </Box>
+      </SignInBox>
     </Container>
   );
 };
