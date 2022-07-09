@@ -33,7 +33,7 @@ const api = {
       .data;
   },
   async getExercise(exerciseId: string): Promise<any> {
-    return (await apiAddress.post(`/exercise/${exerciseId}/`))
+    return (await apiAddress.post(`/exercise/id/${exerciseId}/`))
       .data;
   },
 };

@@ -20,3 +20,8 @@ export interface IIconCustomProps {
   minCardWidth?: string;
   minCardHeight?: string;
 }
+
+export interface IQuizAnswers{
+  exercise: string;
+  answer: string;
+}

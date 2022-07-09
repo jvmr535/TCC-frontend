@@ -21,7 +21,7 @@ export const SubjectCardContainer = styled(Card)<props>`
   align-items: center;
   text-align: center;
   justify-content: space-evenly;
-  width: 25%;
+  width: 25px;
   min-width: ${(props) => props.minCardWidth};
   min-height: ${(props) => props.minCardHeight};
   padding: 5px;

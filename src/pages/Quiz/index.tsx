@@ -1,22 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { QuizContainer } from "./styles";
+import { QuizContainer, Progress } from "./styles";
 
 import api from "../../services/api";
 import quizExercisesContext from "../../context/QuizExercisesContext";
-import { Pagination, Stack } from "@mui/material";
+import QuizImage from '../../components/QuizImage';
+import QuizAnswers from "../../components/QuizAnswers";
+import { IQuizAnswers } from "../../interfaces";
 
 interface IExercise{
   _id: string;
   reference: string;
   subject: string;
-  exerciseFileToBas64: string;
+  exerciseFileToBase64: string;
   rightAnswer: string;
-}
-
-interface IQuizManagement{
-  page: number;
-  exercise: string;
-  answer: string;
 }
 
 const Quiz: React.FC = () => {
@@ -26,11 +22,12 @@ const Quiz: React.FC = () => {
     _id: '',
     reference: '',
     subject: '',
-    exerciseFileToBas64: '',
+    exerciseFileToBase64: '',
     rightAnswer: ''
   })
+  const [quizAnswers, setQuizAnswers] = useState<Array<IQuizAnswers>>([])
   
-  const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+  const handleChange = (event: any, value: number) => {
     setPage(value);
   };
 
@@ -39,24 +36,32 @@ const Quiz: React.FC = () => {
       const response = await api.getExercise(
         quizExercises[page - 1]
       );
-      console.log(quizExercises[page - 1])
-      console.log(response.body.exerciseFileToBas64)
+      console.log(response.body._id)
       setExercise(response.body);
+      if (!(quizAnswers.some(quizAnswer => quizAnswer.exercise === response.body._id))){
+        setQuizAnswers([...quizAnswers, {
+          exercise: response.body._id,
+          answer: "",
+        }])
+      }
+      console.log(quizAnswers)
     }
     fetchExercise();
   },[page])
 
   return (
     <QuizContainer>
-      <Stack spacing={2}>
-        <img 
-          src={`data:image/png;base64, ${exercise.exerciseFileToBas64}`} 
-          alt="" />
-        <Pagination 
-          count={quizExercises.length} 
-          page={page} color="primary" 
-          onChange={handleChange}/>
-      </Stack>
+      <Progress 
+        count={quizExercises.length} 
+        page={page} 
+        color="primary" 
+        onChange={handleChange}/>
+      <QuizImage exerciseFileToBase64 = {exercise.exerciseFileToBase64}/>
+      <QuizAnswers 
+        quizAnswers={quizAnswers} 
+        setQuizAnswers={setQuizAnswers} 
+        exerciseId={exercise._id}
+        page={page}/>
     </QuizContainer>
   );
 };
