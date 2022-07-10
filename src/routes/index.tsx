@@ -9,6 +9,7 @@ import Header from "../components/Header";
 import authContext from "../context/AuthenticationContext";
 import Quiz from "../pages/Quiz";
 import quizExercisesContext from "../context/QuizExercisesContext";
+import Results from "../pages/Results";
 
 const AppRoutes: React.FC = () => {
   const [auth] = authContext.useAuthenticationContext();
@@ -27,6 +28,7 @@ const AppRoutes: React.FC = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/quiz" element={<Quiz />} />
+        <Route path="/results" element={<Results />} />
       </Routes>
     </quizExercisesContext.QuizExercisesContext>
   );

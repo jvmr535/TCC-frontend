@@ -28,7 +28,7 @@ const Home: React.FC = () => {
           colorHex={colorPalette.tertiary.dark}
           width="100px"
           height="100px"
-          isQuizGeneration={false}
+          isQuizDetails
           minCardHeight="17vh"
           minCardWidth="17vw"
         />

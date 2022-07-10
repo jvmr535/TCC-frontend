@@ -64,9 +64,9 @@ const QuizGenerationDialog: React.FC<IQuizGenerationDialog> = ({
             colorHex={colorPalette.tertiary.dark}
             width="100px"
             height="100px"
+            isQuizGeneration
             minCardHeight="5vh"
             minCardWidth="10vw"
-            isQuizGeneration={true}
           />
         </DialogContent>
         <DialogActions>

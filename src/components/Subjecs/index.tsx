@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import SubjectCard from "./SubjectCard";
 
 import EnglishIcon from "./SubjectIcons/EnglishIcon";
@@ -16,9 +16,14 @@ const Subjects: React.FC<IIconCustomProps> = ({
   width,
   height,
   isQuizGeneration,
+  isQuizDetails,
+  isQuizResults,
   minCardWidth,
   minCardHeight,
+  quizzesResults,
 }) => {
+  console.log("quizzesResults", quizzesResults);
+
   const subjects: Array<ISubjectCard> = [
     {
       imageSource: (
@@ -72,8 +77,13 @@ const Subjects: React.FC<IIconCustomProps> = ({
           subjectNameInEnglish={subject.subjectNameInEnglish}
           imageSource={subject.imageSource}
           isQuizGeneration={isQuizGeneration}
+          isQuizDetails={isQuizDetails}
+          isQuizResults={isQuizResults}
           minCardWidth={minCardWidth}
           minCardHeight={minCardHeight}
+          // subjectTotalAndRightQuestions={
+          //   quizzesResults[subject.subjectNameInEnglish]
+          // }
         />
       ))}
     </SubjectContainer>

@@ -5,14 +5,17 @@ import authContext from "../../context/AuthenticationContext";
 
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import Button from "@mui/material/Button";
 
 import StudentIcon from "../../assets/icons/StudentIcon";
 import { colorPalette } from "../../styles/colorPalette";
 
-import { AppHeader, Title } from "./styles";
+import { AppHeader, Title, LogOutButton, OptionsHeaderButton } from "./styles";
 
-const pages = ["Home", "Resultados", "Colabore"];
+const pages = [
+  { title: "Home", path: "/" },
+  { title: "Resultados", path: "/results" },
+  { title: "Colabore", path: "/colaborate" },
+];
 
 const Header: React.FC = () => {
   const navigate = useNavigate();
@@ -23,6 +26,10 @@ const Header: React.FC = () => {
     Authentication.logout();
     setAuthenticationContext({ token: null });
     navigate("/");
+  };
+
+  const handleNavigate = (path: string) => {
+    navigate(path);
   };
 
   return (
@@ -40,17 +47,17 @@ const Header: React.FC = () => {
           </Title>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
-              <Button
-                key={page}
-                sx={{ my: 2, color: "white", display: "block" }}
+              <LogOutButton
+                key={page.title}
+                onClick={() => handleNavigate(page.path)}
               >
-                {page}
-              </Button>
+                {page.title}
+              </LogOutButton>
             ))}
           </Box>
-          <Button color="inherit" onClick={handleLogout}>
+          <OptionsHeaderButton color="inherit" onClick={handleLogout}>
             Sair
-          </Button>
+          </OptionsHeaderButton>
         </Toolbar>
       </AppHeader>
     </Box>

@@ -25,7 +25,7 @@ export const DialogContainer = styled(Container)`
 `;
 
 export const Title = styled(DialogTitle)`
-  color: ${colorPalette.secondary.dark}; ;
+  color: ${colorPalette.secondary.dark};
 `;
 
 export const GenerateQuizButton = styled(Button)`

@@ -8,8 +8,11 @@ export interface ISubjectCard {
   subjectNameInEnglish: string;
   imageSource: React.ReactNode;
   isQuizGeneration?: boolean;
+  isQuizResults?: boolean;
+  isQuizDetails?: boolean;
   minCardWidth?: string;
   minCardHeight?: string;
+  subjectTotalAndRightQuestions?: any;
 }
 
 export interface IIconCustomProps {
@@ -17,11 +20,14 @@ export interface IIconCustomProps {
   width: string;
   height: string;
   isQuizGeneration?: boolean;
+  isQuizResults?: boolean;
+  isQuizDetails?: boolean;
   minCardWidth?: string;
   minCardHeight?: string;
+  quizzesResults?: any;
 }
 
-export interface IQuizAnswers{
+export interface IQuizAnswers {
   exercise: string;
   answer: string;
 }

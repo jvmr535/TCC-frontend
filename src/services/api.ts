@@ -1,8 +1,6 @@
 import axios from "axios";
 import Authentication from "../services/auth";
 
-import { ILogin } from "../interfaces";
-
 const apiAddress = axios.create({
   baseURL: "http://localhost:3333",
 });
@@ -33,8 +31,17 @@ const api = {
       .data;
   },
   async getExercise(exerciseId: string): Promise<any> {
-    return (await apiAddress.post(`/exercise/id/${exerciseId}/`))
+    return (await apiAddress.post(`/exercise/id/${exerciseId}/`)).data;
+  },
+  async quizCorrection(quizAsnwers: any): Promise<any> {
+    return (await apiAddress.post("/exercise/quizCorrection/", quizAsnwers))
       .data;
+  },
+  async getQuizzesResult(): Promise<any> {
+    return (await apiAddress.post("/exercise/generalResults")).data;
+  },
+  async getsolvedQuizzes(): Promise<any> {
+    return (await apiAddress.post("/exercise/solvedQuizzes/")).data;
   },
 };
 
