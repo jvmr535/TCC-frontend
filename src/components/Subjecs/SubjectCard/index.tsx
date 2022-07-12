@@ -73,7 +73,7 @@ const SubjectCard: React.FC<ISubjectCard> = ({
     } catch (error) {
       console.log(error);
     }
-  }, [quizzesResults]);
+  }, []);
 
   const total = quizzesResults[subjectNameInEnglish].total;
   const rightAnswers = quizzesResults[subjectNameInEnglish].right;

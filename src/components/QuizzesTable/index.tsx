@@ -5,77 +5,68 @@ import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
-import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import api from "../../services/api";
+import { useNavigate } from "react-router";
 
 interface Column {
   id: "quiz" | "dateOfRealization" | "numberOfExercises" | "score" | "review";
   label: string;
   minWidth?: number;
-  align?: "right";
+  align?: "center" | "right";
   format?: (value: number) => string;
 }
 
 const columns: readonly Column[] = [
   { id: "quiz", label: "Identificador", minWidth: 170 },
-  { id: "dateOfRealization", label: "Data da realização", minWidth: 100 },
+  {
+    id: "dateOfRealization",
+    label: "Data da realização",
+    minWidth: 100,
+    align: "center",
+  },
   {
     id: "numberOfExercises",
     label: "Quantidade de exercícios",
     minWidth: 170,
-    align: "right",
+    align: "center",
+    format: (value: number) => value.toLocaleString("pt-BR"),
   },
   {
     id: "score",
     label: "Pontuação",
     minWidth: 170,
-    align: "right",
-  },
-  {
-    id: "review",
-    label: "Revisão",
-    minWidth: 170,
-    align: "right",
+    align: "center",
+    format: (value: number) => value.toLocaleString("pt-BR"),
   },
 ];
 
-interface Data {
-  quiz: string;
-  dateOfRealization: Date;
-  numberOfExercises: number;
-  score: number;
-}
+const formatToBrazilianDate = (date: Date) => {
+  return date.toString().split("T")[0].split("-").reverse().join("/");
+};
 
 function createData(
   quiz: string,
   dateOfRealization: Date,
   numberOfExercises: number,
   score: number
-): Data {
-  return { quiz, dateOfRealization, numberOfExercises, score };
+) {
+  return {
+    quiz,
+    dateOfRealization: formatToBrazilianDate(dateOfRealization),
+    numberOfExercises,
+    score,
+  };
 }
 
 const QuizesTable: React.FC = () => {
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
   const [rows, setRows] = useState<Array<any>>([]);
-
-  const handleChangePage = (event: unknown, newPage: number) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
-  };
+  const navigate = useNavigate();
 
   useEffect(() => {
     try {
-      const getsolvedQuizzes = async () => {
-        const response = (await api.getsolvedQuizzes()).body;
+      const getSolvedQuizzes = async () => {
+        const response = (await api.getSolvedQuizzes()).body;
         for (const quiz of response) {
           setRows((oldArray) => [
             ...oldArray,
@@ -87,13 +78,17 @@ const QuizesTable: React.FC = () => {
             ),
           ]);
         }
-        console.log(response);
       };
-      getsolvedQuizzes();
+      getSolvedQuizzes();
     } catch (error) {
       console.log(error);
     }
   }, []);
+
+  const handleRowClick = (quiz: any) => {
+    console.log(quiz);
+    navigate("/quizReview", { state: { quiz: quiz } });
+  };
 
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
@@ -113,36 +108,31 @@ const QuizesTable: React.FC = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row) => {
-                return (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
-                    {columns.map((column) => {
-                      const value = row[column.id];
-                      return (
-                        <TableCell key={column.id} align={column.align}>
-                          {column.format && typeof value === "number"
-                            ? column.format(value)
-                            : value}
-                        </TableCell>
-                      );
-                    })}
-                  </TableRow>
-                );
-              })}
+            {rows.map((row) => {
+              return (
+                <TableRow
+                  hover
+                  role="checkbox"
+                  tabIndex={-1}
+                  key={row.code}
+                  onClick={() => handleRowClick(row.quiz)}
+                >
+                  {columns.map((column) => {
+                    const value = row[column.id];
+                    return (
+                      <TableCell key={column.id} align={column.align}>
+                        {column.format && typeof value === "number"
+                          ? column.format(value)
+                          : value}
+                      </TableCell>
+                    );
+                  })}
+                </TableRow>
+              );
+            })}
           </TableBody>
         </Table>
       </TableContainer>
-      <TablePagination
-        rowsPerPageOptions={[10, 25, 100]}
-        component="div"
-        count={rows.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
     </Paper>
   );
 };

@@ -22,8 +22,6 @@ const Subjects: React.FC<IIconCustomProps> = ({
   minCardHeight,
   quizzesResults,
 }) => {
-  console.log("quizzesResults", quizzesResults);
-
   const subjects: Array<ISubjectCard> = [
     {
       imageSource: (

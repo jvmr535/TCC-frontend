@@ -10,6 +10,7 @@ import authContext from "../context/AuthenticationContext";
 import Quiz from "../pages/Quiz";
 import quizExercisesContext from "../context/QuizExercisesContext";
 import Results from "../pages/Results";
+import QuizReview from "../pages/QuizReview";
 
 const AppRoutes: React.FC = () => {
   const [auth] = authContext.useAuthenticationContext();
@@ -29,6 +30,7 @@ const AppRoutes: React.FC = () => {
         <Route path="/" element={<Home />} />
         <Route path="/quiz" element={<Quiz />} />
         <Route path="/results" element={<Results />} />
+        <Route path="/quizReview" element={<QuizReview />} />
       </Routes>
     </quizExercisesContext.QuizExercisesContext>
   );

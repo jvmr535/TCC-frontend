@@ -40,8 +40,11 @@ const api = {
   async getQuizzesResult(): Promise<any> {
     return (await apiAddress.post("/exercise/generalResults")).data;
   },
-  async getsolvedQuizzes(): Promise<any> {
+  async getSolvedQuizzes(): Promise<any> {
     return (await apiAddress.post("/exercise/solvedQuizzes/")).data;
+  },
+  async getQuizReview(quizId: any): Promise<any> {
+    return (await apiAddress.post(`exercise/quizReview/id/${quizId}`)).data;
   },
 };
 
