@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { SubjectQuizGenerationCounterBox } from "./styles";
 
-import { AddButton, RemoveButton, SubjectNumberCount } from "./styles";
+import { AddButton, RemoveButton } from "./styles";
 import quizQuestionsAmountContext from "../../../../context/QuizQuestionsAmountContext";
 import { Typography } from "@mui/material";
 

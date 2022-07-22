@@ -29,8 +29,8 @@ const Home: React.FC = () => {
           width="100px"
           height="100px"
           isQuizDetails
-          minCardHeight="17vh"
-          minCardWidth="17vw"
+          minCardHeight="5vh"
+          minCardWidth="10vw"
         />
       </HomeContainer>
     </quizQuestionsAmountContext.QuizQuestionsAmountContext>

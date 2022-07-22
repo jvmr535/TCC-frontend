@@ -12,6 +12,6 @@ export default createGlobalStyle`
   }
 
   body {
-    background-color: ${colorPalette.secondary.light};
+    background-color: ${colorPalette.white};
   }
 `;

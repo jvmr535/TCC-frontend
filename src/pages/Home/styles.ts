@@ -5,11 +5,12 @@ import { colorPalette } from "../../styles/colorPalette";
 
 export const HomeContainer = styled(Container)`
   display: flex;
-  flex-direction: column;
   flex-wrap: wrap;
-  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
   justify-content: space-evenly;
   margin-top: 70px;
+  width: 100%;
 `;
 
 export const OpenModalButton = styled(Button)`

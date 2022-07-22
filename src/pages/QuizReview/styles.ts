@@ -5,9 +5,9 @@ import { colorPalette } from "../../styles/colorPalette";
 
 export const Image = styled.img`
   /* filter: invert(1); */
-  margin-top: 20px;
+  margin: 20px 0 20px 0;
   border-style: groove;
-  border-color: ${colorPalette.secondary.natural};
+  border-color: ${colorPalette.white};
   border-width: 1px;
 `;
 

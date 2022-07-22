@@ -22,7 +22,6 @@ const SubjectCard: React.FC<ISubjectCard> = ({
   isQuizDetails,
   minCardWidth,
   minCardHeight,
-  // subjectTotalAndRightQuestions,
 }) => {
   const [exerciseAmount, setExerciseAmount] = useState<number | null>(null);
 

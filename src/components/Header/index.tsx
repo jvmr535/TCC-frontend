@@ -37,7 +37,7 @@ const Header: React.FC = () => {
       <AppHeader position="static">
         <Toolbar>
           <StudentIcon
-            colorHex={colorPalette.tertiary.dark}
+            colorHex={colorPalette.secondary.dark}
             width={"50"}
             height={"50"}
           />

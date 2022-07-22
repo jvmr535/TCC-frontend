@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import QuizzesTable from "../../components/QuizzesTable";
 import ResultsCards from "../../components/ResultsCards";
 

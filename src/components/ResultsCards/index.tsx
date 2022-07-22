@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import api from "../../services/api";
+import React from "react";
 import { colorPalette } from "../../styles/colorPalette";
 import Subjects from "../Subjecs";
 
@@ -15,7 +14,6 @@ const ResultsCards: React.FC = () => {
         isQuizResults
         minCardHeight="5vh"
         minCardWidth="9vw"
-        // quizzesResults={quizzesResults}
       />
     </ResultsContainer>
   );

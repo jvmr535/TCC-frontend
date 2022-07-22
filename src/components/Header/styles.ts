@@ -4,14 +4,14 @@ import { colorPalette } from "../../styles/colorPalette";
 import { AppBar, Typography, Container, Button } from "@mui/material";
 
 export const AppHeader = styled(AppBar)`
-  background-color: ${colorPalette.secondary.natural};
+  background-color: ${colorPalette.primary.dark};
   box-shadow: none;
   min-height: 80px;
   padding-top: 5px;
 `;
 
 export const Title = styled(Typography)`
-  color: ${colorPalette.tertiary.dark};
+  color: ${colorPalette.secondary.dark};
 `;
 
 export const ButtonContainer = styled(Container)`

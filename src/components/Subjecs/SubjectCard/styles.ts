@@ -21,12 +21,12 @@ export const SubjectCardContainer = styled(Card)<props>`
   align-items: center;
   text-align: center;
   justify-content: space-evenly;
-  width: 25px;
+  width: 20%;
+  padding: 5px;
+  margin: 30px;
+  background: white;
   min-width: ${(props) => props.minCardWidth};
   min-height: ${(props) => props.minCardHeight};
-  padding: 5px;
-  margin-bottom: 20px;
-  background: white;
   background-color: ${colorPalette.secondary.natural};
 `;
 

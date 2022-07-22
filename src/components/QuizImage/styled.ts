@@ -12,6 +12,6 @@ export const QuizImageWrapper = styled(Container)`
 
 export const Image = styled.img`
   border-style: groove;
-  border-color: ${colorPalette.secondary.natural};
-  border-width: 1px;
+  border-color: ${colorPalette.black};
+  border-width: 2px;
 `;

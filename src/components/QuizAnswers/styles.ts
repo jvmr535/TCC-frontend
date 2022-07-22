@@ -1,13 +1,7 @@
 import styled from "styled-components";
 import { colorPalette } from "../../styles/colorPalette";
 
-import {
-  Radio,
-  RadioGroup,
-  FormControlLabel,
-  FormControl,
-  Button,
-} from "@mui/material";
+import { FormControl, Button } from "@mui/material";
 
 export const QuizFormControl = styled(FormControl)`
   display: flex;
