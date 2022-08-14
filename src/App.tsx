@@ -3,9 +3,11 @@ import AppRoutes from "./routes";
 
 const App: React.FC = () => {
   return (
-    <authContext.AuthenticationContext>
-      <AppRoutes />
-    </authContext.AuthenticationContext>
+    <>
+      <authContext.AuthenticationContext>
+        <AppRoutes />
+      </authContext.AuthenticationContext>
+    </>
   );
 };
 

@@ -11,8 +11,8 @@ export const QuizFormControl = styled(FormControl)`
 
 export const SubmitQuizButton = styled(Button)`
   margin-top: 4px;
-  color: ${colorPalette.quaternary.dark};
-  border-color: ${colorPalette.quaternary.dark};
+  color: ${colorPalette.primary.dark};
+  border-color: ${colorPalette.primary.dark};
 
   &:hover {
     color: ${colorPalette.tertiary.dark};

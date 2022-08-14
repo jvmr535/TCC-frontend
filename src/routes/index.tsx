@@ -1,6 +1,5 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
 import GlobalTheme from "../styles/global";
 
 import Home from "../pages/Home";
@@ -11,6 +10,7 @@ import Quiz from "../pages/Quiz";
 import quizExercisesContext from "../context/QuizExercisesContext";
 import Results from "../pages/Results";
 import QuizReview from "../pages/QuizReview";
+import SignUp from "../pages/SignUp";
 
 const AppRoutes: React.FC = () => {
   const [auth] = authContext.useAuthenticationContext();
@@ -19,6 +19,7 @@ const AppRoutes: React.FC = () => {
     <>
       <Routes>
         <Route path="/" element={<SignIn />} />
+        <Route path="/cadastro" element={<SignUp />} />
       </Routes>
     </>
   );
@@ -40,7 +41,6 @@ const AppRoutes: React.FC = () => {
       <GlobalTheme />
       <BrowserRouter>
         {auth.token ? routesWithAuth : routesWithoutAuth}
-        <ToastContainer />
       </BrowserRouter>
     </>
   );

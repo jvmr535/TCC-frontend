@@ -13,8 +13,10 @@ import TextField from "@mui/material/TextField";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import { useNavigate } from "react-router-dom";
 
 const SignIn: React.FC = () => {
+  const navigate = useNavigate();
   const [, setAuthenticationContext] = authContext.useAuthenticationContext();
 
   const [loginCredentials, setLoginCredentials] = useState<ILogin>({
@@ -74,10 +76,19 @@ const SignIn: React.FC = () => {
           type="submit"
           fullWidth
           variant="contained"
-          sx={{ mt: 3, mb: 2 }}
+          sx={{ mt: 3, mb: 1 }}
           onClick={() => handleSubmit()}
         >
           Entrar
+        </Button>
+        <Button
+          type="submit"
+          fullWidth
+          variant="outlined"
+          sx={{ mt: 0, mb: 2 }}
+          onClick={() => navigate("/cadastro")}
+        >
+          Cadastre-se
         </Button>
       </SignInBox>
     </Container>

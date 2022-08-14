@@ -22,6 +22,9 @@ const api = {
   async login(loginCredentials: any): Promise<any> {
     return (await apiAddress.post("/session", loginCredentials)).data;
   },
+  async storeUser(singUpCredentials: any): Promise<any> {
+    return (await apiAddress.post("/user", singUpCredentials)).data;
+  },
   async getExerciseAmount(subjectName: string): Promise<any> {
     return (await apiAddress.get(`/exercise/exercisesAmount/${subjectName}`))
       .data;

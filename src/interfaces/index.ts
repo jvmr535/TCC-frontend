@@ -31,3 +31,12 @@ export interface IQuizAnswers {
   exercise: string;
   answer: string;
 }
+
+export interface ISignUp {
+  firstName: string;
+  lastName: string;
+  username: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
