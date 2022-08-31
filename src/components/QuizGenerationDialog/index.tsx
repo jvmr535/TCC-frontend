@@ -14,6 +14,7 @@ import { colorPalette } from "../../styles/colorPalette";
 import Subjects from "../Subjecs";
 import quizQuestionsAmountContext from "../../context/QuizQuestionsAmountContext";
 import quizExercisesContext from "../../context/QuizExercisesContext";
+import { toastNotificationError } from "../../assets/ToastNotification";
 
 interface IQuizGenerationDialog {
   open: boolean;
@@ -37,14 +38,15 @@ const QuizGenerationDialog: React.FC<IQuizGenerationDialog> = ({
 
   const handleGenerateQuiz = async () => {
     try {
-      const { body: exercises } = await api.getGenerateQuiz(
-        quizQuestionsAmount
-      );
-      setQuizExercises(exercises);
+      const response = await api.getGenerateQuiz(quizQuestionsAmount);
+      const { body } = response.data;
+
+      setQuizExercises(body);
+
       navigate("/quiz");
       setOpen(false);
     } catch (error) {
-      console.log(error);
+      toastNotificationError("Erro ao gerar questionário");
     }
   };
 

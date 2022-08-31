@@ -20,34 +20,31 @@ apiAddress.interceptors.request.use(async (config) => {
 
 const api = {
   async login(loginCredentials: any): Promise<any> {
-    return (await apiAddress.post("/session", loginCredentials)).data;
+    return await apiAddress.post("/session", loginCredentials);
   },
   async storeUser(singUpCredentials: any): Promise<any> {
-    return (await apiAddress.post("/user", singUpCredentials)).data;
+    return await apiAddress.post("/user", singUpCredentials);
   },
   async getExerciseAmount(subjectName: string): Promise<any> {
-    return (await apiAddress.get(`/exercise/exercisesAmount/${subjectName}`))
-      .data;
+    return await apiAddress.get(`/exercise/amount/${subjectName}`);
   },
   async getGenerateQuiz(quizSubjectsAmout: any): Promise<any> {
-    return (await apiAddress.post("/exercise/generateQuiz/", quizSubjectsAmout))
-      .data;
-  },
-  async getExercise(exerciseId: string): Promise<any> {
-    return (await apiAddress.post(`/exercise/id/${exerciseId}/`)).data;
+    return await apiAddress.post("/quiz", quizSubjectsAmout);
   },
   async quizCorrection(quizAsnwers: any): Promise<any> {
-    return (await apiAddress.post("/exercise/quizCorrection/", quizAsnwers))
-      .data;
+    return await apiAddress.post("/quiz/correction/", quizAsnwers);
+  },
+  async getExercise(exerciseId: string): Promise<any> {
+    return await apiAddress.get(`/exercise/getById/${exerciseId}/`);
   },
   async getQuizzesResult(): Promise<any> {
-    return (await apiAddress.post("/exercise/generalResults")).data;
+    return await apiAddress.post("/quiz/generalResults");
   },
   async getSolvedQuizzes(): Promise<any> {
-    return (await apiAddress.post("/exercise/solvedQuizzes/")).data;
+    return await apiAddress.post("/quiz/solvedQuizzes/");
   },
-  async getQuizReview(quizId: any): Promise<any> {
-    return (await apiAddress.post(`exercise/quizReview/id/${quizId}`)).data;
+  async getQuizReview(quizId: string): Promise<any> {
+    return await apiAddress.get(`quiz/review/${quizId}`);
   },
 };
 

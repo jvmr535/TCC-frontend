@@ -8,6 +8,7 @@ import {
   CardHeader,
   Button,
   Typography,
+  CircularProgress,
 } from "@mui/material";
 
 interface props {
@@ -39,7 +40,16 @@ export const SubjectCardHeader = styled(CardHeader)`
 `;
 
 export const ExerciseAmount = styled(Typography)`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-right: 4px;
   color: ${colorPalette.primary.dark};
+`;
+
+export const ExerciseAmountCircularProgress = styled(CircularProgress)`
+  margin-left: 4px;
+  color: black;
 `;
 
 export const SubjectCardActions = styled(CardActions)``;

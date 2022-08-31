@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import QuizImage from "../../components/QuizImage";
 import api from "../../services/api";
 
 import {
@@ -27,8 +28,9 @@ const QuizReview: React.FC = () => {
 
   useEffect(() => {
     const getQuizReview = async () => {
-      const response = (await api.getQuizReview(quiz)).body;
-      setQuizAnswers(response.answers);
+      const response = await api.getQuizReview(quiz);
+      const { body } = response.data;
+      setQuizAnswers(body.answers);
     };
     getQuizReview();
   }, []);
@@ -36,10 +38,10 @@ const QuizReview: React.FC = () => {
   useEffect(() => {
     const getExercise = async () => {
       if (quizAnswers[page - 1] !== undefined) {
-        const response = (
-          await api.getExercise(quizAnswers[page - 1].exerciseId)
-        ).body;
-        setImage(response.exerciseFileToBase64);
+        const response = await api.getExercise(quizAnswers[page - 1]._id);
+
+        const { body } = response.data;
+        setImage(body.exerciseFileToBase64);
         setUserAnswers({
           userAnswer: quizAnswers[page - 1].userAnswer,
           rightAnswer: quizAnswers[page - 1].rightAnswer,
@@ -67,7 +69,8 @@ const QuizReview: React.FC = () => {
           <WrongAnswer>{`Sua resposta: ${userAnswers.userAnswer}`}</WrongAnswer>
         </>
       )}
-      <Image src={`data:image/png;base64, ${image}`} alt="" />
+      <div style={{ marginTop: "20px" }} />
+      <QuizImage exerciseFileToBase64={image} />
     </QuizReviewContainer>
   );
 };

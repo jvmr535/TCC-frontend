@@ -16,3 +16,5 @@ export const QuizReviewContainer = styled(Container)`
 export const Progress = styled(Pagination)`
   margin: 20px 0 20px 0;
 `;
+
+export const QuizzesTableContainer = styled(Container)``;

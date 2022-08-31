@@ -14,6 +14,10 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { useNavigate } from "react-router-dom";
+import {
+  toastNotificationError,
+  toastNotificationWarning,
+} from "../../assets/ToastNotification";
 
 const SignIn: React.FC = () => {
   const navigate = useNavigate();
@@ -34,10 +38,18 @@ const SignIn: React.FC = () => {
 
   const handleSubmit = async () => {
     try {
-      const { body: token } = await api.login(loginCredentials);
-      Authentication.login(token);
-      setAuthenticationContext({ token });
-    } catch (error) {}
+      const response = await api.login(loginCredentials);
+      if (response.status === 401) {
+        toastNotificationWarning("Usuário ou senha incorreto(s)");
+      } else {
+        const { body } = response.data;
+        Authentication.login(body);
+        setAuthenticationContext({ body });
+        window.location.reload();
+      }
+    } catch (error) {
+      toastNotificationError("Erro ao logar. Verifique seu login e sua senha");
+    }
   };
 
   return (

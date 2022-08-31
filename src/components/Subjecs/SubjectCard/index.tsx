@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Typography } from "@mui/material";
+import { Typography, CircularProgress } from "@mui/material";
 import { ISubjectCard } from "../../../interfaces";
 import api from "../../../services/api";
 
@@ -10,8 +10,10 @@ import {
   SubjectCardActions,
   SubjectCardContent,
   ExerciseAmount,
+  ExerciseAmountCircularProgress,
 } from "./styles";
 import SubjectQuizGenerationCounter from "./SubjectQuizGenerationCounter";
+import { toastNotificationError } from "../../../assets/ToastNotification";
 
 const SubjectCard: React.FC<ISubjectCard> = ({
   subjectNameInPortuguese,
@@ -29,55 +31,77 @@ const SubjectCard: React.FC<ISubjectCard> = ({
     const getExerciseAmount = async () => {
       try {
         const response = await api.getExerciseAmount(subjectNameInEnglish);
-        setExerciseAmount(response.body);
-      } catch (error) {
-        console.log(error);
-      }
+        const { body } = response.data;
+        setExerciseAmount(body);
+      } catch (error) {}
     };
     getExerciseAmount();
   }, [exerciseAmount, subjectNameInEnglish]);
 
-  const [quizzesResults, setQuizzesResults] = useState<any>({
-    english: {
-      total: 0,
-      right: 0,
-    },
-    spanish: {
-      total: 0,
-      right: 0,
-    },
-    portuguese: {
-      total: 0,
-      right: 0,
-    },
-    humanSciences: {
-      total: 0,
-      right: 0,
-    },
-    natureSciences: {
-      total: 0,
-      right: 0,
-    },
-    mathematics: {
-      total: 0,
-      right: 0,
-    },
-  });
+  const [quizzesResults, setQuizzesResults] = useState<any>();
 
   useEffect(() => {
     try {
-      const getQuizzesResult = async () =>
-        setQuizzesResults((await api.getQuizzesResult()).body);
+      const getQuizzesResult = async () => {
+        const response = await api.getQuizzesResult();
+        const { body } = response.data;
+        setQuizzesResults(body);
+      };
       getQuizzesResult();
     } catch (error) {
-      console.log(error);
+      toastNotificationError("Erro ao obter resultados dos questionários");
     }
   }, []);
 
-  const total = quizzesResults[subjectNameInEnglish].total;
-  const rightAnswers = quizzesResults[subjectNameInEnglish].right;
-  const hitRate = Math.round((rightAnswers / total) * 100);
+  const total = () => quizzesResults[subjectNameInEnglish].total;
+  const rightAnswers = () => quizzesResults[subjectNameInEnglish].right;
+  const hitRate = () => {
+    const value = Math.round((rightAnswers() / total()) * 100);
+    if (!value) {
+      return null;
+    }
+    return value;
+  };
 
+  const quizGeneration = () => (
+    <>
+      <ExerciseAmount>
+        Disponíveis:
+        {exerciseAmount ? (
+          exerciseAmount
+        ) : (
+          <ExerciseAmountCircularProgress variant="indeterminate" size={16} />
+        )}
+      </ExerciseAmount>
+      <SubjectCardActions>
+        <SubjectQuizGenerationCounter
+          subjectNameInEnglish={subjectNameInEnglish}
+        />
+      </SubjectCardActions>
+    </>
+  );
+
+  const quizDetails = () => (
+    <SubjectCardActions>
+      <SubjectButton size="small">Detalhes</SubjectButton>
+    </SubjectCardActions>
+  );
+
+  const quizResults = () =>
+    quizzesResults ? (
+      <SubjectCardContent>
+        {hitRate() ? (
+          <>
+            <Typography>{`Total: ${total()}`}</Typography>
+            <Typography>{`Acertos: ${rightAnswers()} (${hitRate()}%)`}</Typography>
+          </>
+        ) : (
+          <p>Nenhum exercício realizado</p>
+        )}
+      </SubjectCardContent>
+    ) : (
+      <ExerciseAmountCircularProgress size={16} />
+    );
   return (
     <SubjectCardContainer
       minCardWidth={minCardWidth}
@@ -85,27 +109,9 @@ const SubjectCard: React.FC<ISubjectCard> = ({
     >
       <SubjectCardHeader title={subjectNameInPortuguese} />
       <SubjectCardContent>{imageSource}</SubjectCardContent>
-      {isQuizGeneration ? (
-        <>
-          <ExerciseAmount>Disponíveis: {exerciseAmount}</ExerciseAmount>
-          <SubjectCardActions>
-            <SubjectQuizGenerationCounter
-              subjectNameInEnglish={subjectNameInEnglish}
-            />
-          </SubjectCardActions>
-        </>
-      ) : null}
-      {isQuizDetails ? (
-        <SubjectCardActions>
-          <SubjectButton size="small">Detalhes</SubjectButton>
-        </SubjectCardActions>
-      ) : null}
-      {isQuizResults ? (
-        <SubjectCardContent>
-          <Typography>{`Total: ${total}`}</Typography>
-          <Typography>{`Acertos: ${rightAnswers} (${hitRate}%)`}</Typography>
-        </SubjectCardContent>
-      ) : null}
+      {isQuizGeneration ? quizGeneration() : null}
+      {isQuizDetails ? quizDetails() : null}
+      {isQuizResults ? quizResults() : null}
     </SubjectCardContainer>
   );
 };

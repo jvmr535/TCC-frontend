@@ -11,6 +11,7 @@ export const QuizImageWrapper = styled(Container)`
 `;
 
 export const Image = styled.img`
+  max-width: 75%;
   border-style: groove;
   border-color: ${colorPalette.black};
   border-width: 2px;

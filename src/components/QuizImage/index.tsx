@@ -1,3 +1,4 @@
+import { CircularProgress } from "@mui/material";
 import React from "react";
 import { Image, QuizImageWrapper } from "./styled";
 
@@ -8,7 +9,11 @@ interface IQuizImage {
 const QuizImage: React.FC<IQuizImage> = ({ exerciseFileToBase64 }) => {
   return (
     <QuizImageWrapper>
-      <Image src={`data:image/png;base64, ${exerciseFileToBase64}`} alt="" />
+      {!exerciseFileToBase64 ? (
+        <CircularProgress />
+      ) : (
+        <Image src={`data:image/png;base64, ${exerciseFileToBase64}`} alt="" />
+      )}
     </QuizImageWrapper>
   );
 };

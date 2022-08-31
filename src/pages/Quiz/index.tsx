@@ -18,13 +18,16 @@ interface IExercise {
 const Quiz: React.FC = () => {
   const [quizExercises] = quizExercisesContext.useQuizExercisesContext();
   const [page, setPage] = useState(1);
-  const [exercise, setExercise] = useState<IExercise>({
+
+  const INITIAL_STATE = {
     _id: "",
     reference: "",
     subject: "",
     exerciseFileToBase64: "",
     rightAnswer: "",
-  });
+  };
+
+  const [exercise, setExercise] = useState<IExercise>(INITIAL_STATE);
   const [quizAnswers, setQuizAnswers] = useState<Array<IQuizAnswers>>([]);
 
   const handleChange = (event: any, value: number) => {
@@ -33,22 +36,20 @@ const Quiz: React.FC = () => {
 
   useEffect(() => {
     const fetchExercise = async () => {
+      setExercise(INITIAL_STATE);
       const response = await api.getExercise(quizExercises[page - 1]);
-      setExercise(response.body);
-      if (
-        !quizAnswers.some(
-          (quizAnswer) => quizAnswer.exercise === response.body._id
-        )
-      ) {
+      const { body } = response.data;
+
+      setExercise(body);
+      if (!quizAnswers.some((quizAnswer) => quizAnswer.exercise === body._id)) {
         setQuizAnswers([
           ...quizAnswers,
           {
-            exercise: response.body._id,
+            exercise: body._id,
             answer: "",
           },
         ]);
       }
-      console.log(quizAnswers);
     };
     fetchExercise();
   }, [page]);
@@ -61,13 +62,13 @@ const Quiz: React.FC = () => {
         color="primary"
         onChange={handleChange}
       />
-      <QuizImage exerciseFileToBase64={exercise.exerciseFileToBase64} />
       <QuizAnswers
         quizAnswers={quizAnswers}
         setQuizAnswers={setQuizAnswers}
         exerciseId={exercise._id}
-        page={page}
+        currentPage={page}
       />
+      <QuizImage exerciseFileToBase64={exercise.exerciseFileToBase64} />
     </QuizContainer>
   );
 };

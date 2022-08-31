@@ -7,46 +7,54 @@ import { IQuizAnswers } from "../../interfaces";
 import { QuizFormControl, SubmitQuizButton } from "./styles";
 import api from "../../services/api";
 import { useNavigate } from "react-router";
+import {
+  toastNotificationError,
+  toastNotificationSuccess,
+} from "../../assets/ToastNotification";
 
 interface IAnswerSetter {
   quizAnswers: Array<IQuizAnswers>;
   setQuizAnswers: Function;
   exerciseId: string;
-  page: number;
+  currentPage: number;
 }
 
 const QuizAnswers: React.FC<IAnswerSetter> = ({
   quizAnswers,
   setQuizAnswers,
   exerciseId,
-  page,
+  currentPage,
 }) => {
   const navigate = useNavigate();
   const [change, setChange] = useState<boolean>(false);
 
-  const handleChange = useCallback((event: any) => {
-    const index = quizAnswers
-      .map((quizAnswer) => quizAnswer.exercise)
-      .indexOf(exerciseId);
-    quizAnswers[index].answer = event.target.value;
-    setQuizAnswers([...quizAnswers]);
-    console.log(quizAnswers);
-    setChange(!change);
-  },[quizAnswers, exerciseId, setQuizAnswers]);
-
+  const handleChange = useCallback(
+    (event: any) => {
+      const index = quizAnswers
+        .map((quizAnswer) => quizAnswer.exercise)
+        .indexOf(exerciseId);
+      quizAnswers[index].answer = event.target.value;
+      setQuizAnswers([...quizAnswers]);
+      setChange(!change);
+    },
+    [quizAnswers, exerciseId, setQuizAnswers]
+  );
 
   const quizCorrection = useCallback(async () => {
     try {
       await api.quizCorrection(quizAnswers);
-      navigate("/results")
+      toastNotificationSuccess(
+        "Suas respostas foram enviadas, por favor verifique sua aba de resultados!"
+      );
+      navigate("/results");
     } catch (error) {
-      console.log(error);
+      toastNotificationError("Erro ao corrigir questionário");
     }
-  },[quizAnswers, navigate]);
+  }, [quizAnswers, navigate]);
 
-  const renderOptions = useCallback(()=> {
+  const renderOptions = useCallback(() => {
     return (
-      <QuizFormControl >
+      <QuizFormControl>
         <RadioGroup
           row
           aria-labelledby="demo-row-radio-buttons-group-label"
@@ -63,12 +71,10 @@ const QuizAnswers: React.FC<IAnswerSetter> = ({
           Submeter questionário
         </SubmitQuizButton>
       </QuizFormControl>
-    )
-  },[handleChange, quizCorrection, change]);
+    );
+  }, [handleChange, quizCorrection, change]);
 
-  return (
-    renderOptions()
-  );
+  return renderOptions();
 };
 
 export default QuizAnswers;

@@ -9,8 +9,14 @@ import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+
 import { ISignUp } from "../../interfaces";
 import { useNavigate } from "react-router-dom";
+import {
+  toastNotificationInfo,
+  toastNotificationSuccess,
+  toastNotificationWarning,
+} from "../../assets/ToastNotification";
 
 const SignUp: React.FC = () => {
   const navigate = useNavigate();
@@ -39,9 +45,7 @@ const SignUp: React.FC = () => {
         signUp.password !== "" &&
         signUp.confirmPassword !== ""
       ) {
-        console.log(signUp.password);
-        console.log(signUp.confirmPassword);
-        console.log("Suas senhas não são iguais!");
+        toastNotificationInfo("As senhas não correspondem");
       } else {
         await api.storeUser({
           email: signUp.email,
@@ -50,10 +54,17 @@ const SignUp: React.FC = () => {
           firstName: signUp.firstName,
           lastName: signUp.lastName,
         });
-
+        toastNotificationSuccess(
+          `${signUp.firstName}, seu cadastro foi realizado com sucesso 😊`
+        );
         navigate("/");
       }
-    } catch (error) {}
+    } catch (error) {
+      toastNotificationWarning("Erro ao fazer o cadastro");
+      toastNotificationWarning(
+        "O erro pode ter sido causado por uma instabilidade no servidor"
+      );
+    }
   };
 
   return (

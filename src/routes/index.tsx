@@ -1,5 +1,7 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import GlobalTheme from "../styles/global";
 
 import Home from "../pages/Home";
@@ -42,6 +44,7 @@ const AppRoutes: React.FC = () => {
       <BrowserRouter>
         {auth.token ? routesWithAuth : routesWithoutAuth}
       </BrowserRouter>
+      <ToastContainer />
     </>
   );
 };
