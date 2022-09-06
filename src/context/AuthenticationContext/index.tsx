@@ -1,8 +1,11 @@
 import React, { useContext, useState } from "react";
 import Authentication from "../../services/auth";
+import { verify } from "jsonwebtoken";
+import * as dotenv from "dotenv";
 
 interface IAuthenticationContext {
   token: string | null;
+  isAdmin: boolean;
 }
 
 const AuthenticationWrapper =
@@ -17,10 +20,17 @@ const useAuthenticationContext = () => {
 };
 
 const AuthenticationContext = ({ children }: { children: any }) => {
+  const token = Authentication.getToken();
+  const isAdmin = false;
+
   const [contextObject, setContextObject] = useState<IAuthenticationContext>({
-    token: Authentication.getToken(),
-    // token: "",
+    token,
+    isAdmin,
   });
+
+  const decodeJwt = (token: string): any => {
+    return verify(token.split(" ")[1], process.env.SECRET_WORD as string);
+  };
 
   const updateContextObject = (value: IAuthenticationContext) => {
     setContextObject(value);

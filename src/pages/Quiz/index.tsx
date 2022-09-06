@@ -59,7 +59,6 @@ const Quiz: React.FC = () => {
       <Progress
         count={quizExercises.length}
         page={page}
-        color="primary"
         onChange={handleChange}
       />
       <QuizAnswers

@@ -13,17 +13,16 @@ import quizExercisesContext from "../context/QuizExercisesContext";
 import Results from "../pages/Results";
 import QuizReview from "../pages/QuizReview";
 import SignUp from "../pages/SignUp";
+import AddExercises from "../pages/AddExercises";
 
 const AppRoutes: React.FC = () => {
   const [auth] = authContext.useAuthenticationContext();
 
   const routesWithoutAuth = (
-    <>
-      <Routes>
-        <Route path="/" element={<SignIn />} />
-        <Route path="/cadastro" element={<SignUp />} />
-      </Routes>
-    </>
+    <Routes>
+      <Route path="/" element={<SignIn />} />
+      <Route path="/cadastro" element={<SignUp />} />
+    </Routes>
   );
 
   const routesWithAuth = (
@@ -34,6 +33,9 @@ const AppRoutes: React.FC = () => {
         <Route path="/quiz" element={<Quiz />} />
         <Route path="/results" element={<Results />} />
         <Route path="/quizReview" element={<QuizReview />} />
+        {auth.isAdmin ? (
+          <Route path="/addExercises" element={<AddExercises />} />
+        ) : null}
       </Routes>
     </quizExercisesContext.QuizExercisesContext>
   );

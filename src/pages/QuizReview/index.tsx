@@ -6,7 +6,6 @@ import api from "../../services/api";
 import {
   QuizReviewContainer,
   Progress,
-  Image,
   RightAnswer,
   WrongAnswer,
 } from "./styles";

@@ -9,6 +9,7 @@ const Results: React.FC = () => {
     <ResultsContainer>
       <ResultsCards />
       <QuizzesTable />
+      <div style={{ margin: "20px" }} />
     </ResultsContainer>
   );
 };

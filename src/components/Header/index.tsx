@@ -12,15 +12,16 @@ import { colorPalette } from "../../styles/colorPalette";
 import { AppHeader, Title, LogOutButton, OptionsHeaderButton } from "./styles";
 
 const pages = [
-  { title: "Home", path: "/" },
-  { title: "Resultados", path: "/results" },
-  { title: "Colabore", path: "/colaborate" },
+  { title: "Home", path: "/", adminOnly: false },
+  { title: "Resultados", path: "/results", adminOnly: false },
+  { title: "Colabore", path: "/addExercises", adminOnly: true },
 ];
 
 const Header: React.FC = () => {
   const navigate = useNavigate();
 
-  const [, setAuthenticationContext] = authContext.useAuthenticationContext();
+  const [authenticationContext, setAuthenticationContext] =
+    authContext.useAuthenticationContext();
 
   const handleLogout = () => {
     Authentication.logout();
@@ -46,18 +47,20 @@ const Header: React.FC = () => {
             Enem Experience
           </Title>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <LogOutButton
-                key={page.title}
-                onClick={() => handleNavigate(page.path)}
-              >
-                {page.title}
-              </LogOutButton>
-            ))}
+            {pages.map((page) =>
+              page.adminOnly && !authenticationContext.isAdmin ? null : (
+                <OptionsHeaderButton
+                  key={page.title}
+                  onClick={() => handleNavigate(page.path)}
+                >
+                  {page.title}
+                </OptionsHeaderButton>
+              )
+            )}
           </Box>
-          <OptionsHeaderButton color="inherit" onClick={handleLogout}>
+          <LogOutButton color="inherit" onClick={handleLogout}>
             Sair
-          </OptionsHeaderButton>
+          </LogOutButton>
         </Toolbar>
       </AppHeader>
     </Box>
