@@ -40,3 +40,10 @@ export interface ISignUp {
   password: string;
   confirmPassword: string;
 }
+
+export interface IExercise {
+  reference: string;
+  subject: string;
+  exerciseFileToBase64?: string;
+  rightAnswer: string;
+}

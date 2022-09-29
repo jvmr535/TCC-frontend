@@ -3,6 +3,8 @@ import Authentication from "../../services/auth";
 import { verify } from "jsonwebtoken";
 import * as dotenv from "dotenv";
 
+dotenv.config();
+
 interface IAuthenticationContext {
   token: string | null;
   isAdmin: boolean;
@@ -21,16 +23,21 @@ const useAuthenticationContext = () => {
 
 const AuthenticationContext = ({ children }: { children: any }) => {
   const token = Authentication.getToken();
-  const isAdmin = false;
 
+  // const decodeJwt = (token: string | null): any => {
+  //   if (token) {
+  //     return verify(token.split(" ")[1], process.env.SECRET_WORD as string);
+  //   }
+  //   return null;
+  // };
+
+  // const { isAdmin } = decodeJwt(token).user;
+
+  const isAdmin = true;
   const [contextObject, setContextObject] = useState<IAuthenticationContext>({
     token,
     isAdmin,
   });
-
-  const decodeJwt = (token: string): any => {
-    return verify(token.split(" ")[1], process.env.SECRET_WORD as string);
-  };
 
   const updateContextObject = (value: IAuthenticationContext) => {
     setContextObject(value);

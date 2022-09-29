@@ -37,6 +37,7 @@ const QuizAnswers: React.FC<IAnswerSetter> = ({
       setQuizAnswers([...quizAnswers]);
       setChange(!change);
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [quizAnswers, exerciseId, setQuizAnswers]
   );
 
@@ -72,6 +73,7 @@ const QuizAnswers: React.FC<IAnswerSetter> = ({
         </SubmitQuizButton>
       </QuizFormControl>
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [handleChange, quizCorrection, change]);
 
   return renderOptions();
