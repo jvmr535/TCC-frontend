@@ -17,6 +17,7 @@ interface IAnswerSetter {
   setQuizAnswers: Function;
   exerciseId: string;
   currentPage: number;
+  isRanked: boolean;
 }
 
 const QuizAnswers: React.FC<IAnswerSetter> = ({
@@ -24,6 +25,7 @@ const QuizAnswers: React.FC<IAnswerSetter> = ({
   setQuizAnswers,
   exerciseId,
   currentPage,
+  isRanked,
 }) => {
   const navigate = useNavigate();
   const [change, setChange] = useState<boolean>(false);
@@ -43,12 +45,13 @@ const QuizAnswers: React.FC<IAnswerSetter> = ({
 
   const quizCorrection = useCallback(async () => {
     try {
-      await api.quizCorrection(quizAnswers);
+      await api.quizCorrection({ isRanked, quizAnswers });
       toastNotificationSuccess(
         "Suas respostas foram enviadas, por favor verifique sua aba de resultados!"
       );
       navigate("/results");
     } catch (error) {
+      console.log(error);
       toastNotificationError("Erro ao corrigir questionário");
     }
   }, [quizAnswers, navigate]);

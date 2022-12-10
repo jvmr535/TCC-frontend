@@ -10,6 +10,8 @@ const Home: React.FC = () => {
   const [openQuizGenerationDialog, setOpenQuizGenerationDialog] =
     useState<boolean>(false);
 
+  const [isRanked, setIsRanked] = useState<boolean>(false);
+
   const handleOpenQuizGenerationDialog = () => {
     setOpenQuizGenerationDialog(true);
   };
@@ -19,10 +21,24 @@ const Home: React.FC = () => {
       <QuizGenerationDialog
         open={openQuizGenerationDialog}
         setOpen={setOpenQuizGenerationDialog}
+        isRanked={isRanked}
       />
       <HomeContainer>
-        <OpenModalButton onClick={handleOpenQuizGenerationDialog}>
+        <OpenModalButton
+          onClick={() => {
+            handleOpenQuizGenerationDialog();
+            setIsRanked(false);
+          }}
+        >
           Gerar simulado
+        </OpenModalButton>
+        <OpenModalButton
+          onClick={() => {
+            handleOpenQuizGenerationDialog();
+            setIsRanked(true);
+          }}
+        >
+          Gerar simulado ranqueado
         </OpenModalButton>
         <Subjects
           colorHex={colorPalette.tertiary.dark}

@@ -19,11 +19,13 @@ import { toastNotificationError } from "../../assets/ToastNotification";
 interface IQuizGenerationDialog {
   open: boolean;
   setOpen: Function;
+  isRanked: boolean;
 }
 
 const QuizGenerationDialog: React.FC<IQuizGenerationDialog> = ({
   open,
   setOpen,
+  isRanked,
 }) => {
   const navigate = useNavigate();
 
@@ -43,7 +45,7 @@ const QuizGenerationDialog: React.FC<IQuizGenerationDialog> = ({
 
       setQuizExercises(body);
 
-      navigate("/quiz");
+      navigate("/quiz", { state: { isRanked: isRanked } });
       setOpen(false);
     } catch (error) {
       toastNotificationError("Erro ao gerar questionário");

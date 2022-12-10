@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Typography, CircularProgress } from "@mui/material";
+import { Typography } from "@mui/material";
 import { ISubjectCard } from "../../../interfaces";
 import api from "../../../services/api";
 

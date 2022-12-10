@@ -6,6 +6,7 @@ import quizExercisesContext from "../../context/QuizExercisesContext";
 import QuizImage from "../../components/QuizImage";
 import QuizAnswers from "../../components/QuizAnswers";
 import { IQuizAnswers } from "../../interfaces";
+import { useLocation } from "react-router";
 
 interface IExercise {
   _id: string;
@@ -16,6 +17,8 @@ interface IExercise {
 }
 
 const Quiz: React.FC = () => {
+  const { state } = useLocation();
+
   const [quizExercises] = quizExercisesContext.useQuizExercisesContext();
   const [page, setPage] = useState(1);
 
@@ -66,6 +69,7 @@ const Quiz: React.FC = () => {
         setQuizAnswers={setQuizAnswers}
         exerciseId={exercise._id}
         currentPage={page}
+        isRanked={state.isRanked}
       />
       <QuizImage exerciseFileToBase64={exercise.exerciseFileToBase64} />
     </QuizContainer>

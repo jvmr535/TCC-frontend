@@ -14,6 +14,7 @@ import { AppHeader, Title, LogOutButton, OptionsHeaderButton } from "./styles";
 const pages = [
   { title: "Home", path: "/", adminOnly: false },
   { title: "Resultados", path: "/results", adminOnly: false },
+  { title: "Ranking", path: "/ranking", adminOnly: false },
   { title: "Colabore", path: "/addExercises", adminOnly: true },
 ];
 

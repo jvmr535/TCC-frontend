@@ -31,8 +31,11 @@ const api = {
   async getGenerateQuiz(quizSubjectsAmout: any): Promise<any> {
     return await apiAddress.post("/quiz", quizSubjectsAmout);
   },
-  async quizCorrection(quizAsnwers: any): Promise<any> {
-    return await apiAddress.post("/quiz/correction/", quizAsnwers);
+  async quizCorrection({ isRanked, quizAnswers }: any): Promise<any> {
+    return await apiAddress.post("/quiz/correction/", {
+      isRanked: isRanked,
+      quizAnswers: quizAnswers,
+    });
   },
   async getExercise(exerciseId: string): Promise<any> {
     return await apiAddress.get(`/exercise/getById/${exerciseId}/`);
