@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
+import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
@@ -11,6 +11,7 @@ import { useNavigate } from "react-router";
 import { toastNotificationError } from "../../assets/ToastNotification";
 import { QuizzesNotFoundContainer } from "./QuizzesNotFound/styles";
 import QuizzesNotFound from "./QuizzesNotFound";
+import { styled } from "@mui/material/styles";
 
 interface Column {
   id: "quiz" | "dateOfRealization" | "numberOfExercises" | "score" | "review";
@@ -62,6 +63,25 @@ function createData(
   };
 }
 
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  "&:nth-of-type(odd)": {
+    backgroundColor: theme.palette.action.hover,
+  },
+  "&:last-child td, &:last-child th": {
+    border: 0,
+  },
+}));
+
 const QuizesTable: React.FC = () => {
   const [rows, setRows] = useState<Array<any>>([]);
   const navigate = useNavigate();
@@ -98,49 +118,50 @@ const QuizesTable: React.FC = () => {
   return (
     <QuizzesNotFoundContainer>
       {rows.length > 0 ? (
-        <Paper sx={{ width: "100%", overflow: "hidden" }}>
-          <TableContainer sx={{ maxHeight: 440 }}>
-            <Table stickyHeader aria-label="sticky table">
-              <TableHead>
-                <TableRow>
-                  {columns.map((column) => (
-                    <TableCell
-                      key={column.id}
-                      align={column.align}
-                      style={{ minWidth: column.minWidth }}
-                    >
-                      {column.label}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {rows.map((row) => {
-                  return (
-                    <TableRow
-                      hover
-                      role="checkbox"
-                      tabIndex={-1}
-                      key={row.code}
-                      onClick={() => handleRowClick(row.quiz)}
-                    >
-                      {columns.map((column) => {
-                        const value = row[column.id];
-                        return (
-                          <TableCell key={column.id} align={column.align}>
-                            {column.format && typeof value === "number"
-                              ? column.format(value)
-                              : value}
-                          </TableCell>
-                        );
-                      })}
-                    </TableRow>
-                  );
-                })}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </Paper>
+        <TableContainer
+          component={Paper}
+          sx={{ maxHeight: 440, width: "100%", overflow: "hidden" }}
+        >
+          <Table stickyHeader aria-label="customized table">
+            <TableHead>
+              <StyledTableRow>
+                {columns.map((column) => (
+                  <StyledTableCell
+                    key={column.id}
+                    align={column.align}
+                    style={{ minWidth: column.minWidth }}
+                  >
+                    {column.label}
+                  </StyledTableCell>
+                ))}
+              </StyledTableRow>
+            </TableHead>
+            <TableBody>
+              {rows.map((row) => {
+                return (
+                  <StyledTableRow
+                    hover
+                    role="checkbox"
+                    tabIndex={-1}
+                    key={row.code}
+                    onClick={() => handleRowClick(row.quiz)}
+                  >
+                    {columns.map((column) => {
+                      const value = row[column.id];
+                      return (
+                        <StyledTableCell key={column.id} align={column.align}>
+                          {column.format && typeof value === "number"
+                            ? column.format(value)
+                            : value}
+                        </StyledTableCell>
+                      );
+                    })}
+                  </StyledTableRow>
+                );
+              })}
+            </TableBody>
+          </Table>
+        </TableContainer>
       ) : (
         <QuizzesNotFound />
       )}

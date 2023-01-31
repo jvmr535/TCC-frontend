@@ -47,7 +47,10 @@ const api = {
     return await apiAddress.post("/quiz/solvedQuizzes/");
   },
   async getQuizReview(quizId: string): Promise<any> {
-    return await apiAddress.get(`quiz/review/${quizId}`);
+    return await apiAddress.get(`/quiz/review/${quizId}`);
+  },
+  async getRanking(): Promise<any> {
+    return await apiAddress.get("/ranking");
   },
 };
 

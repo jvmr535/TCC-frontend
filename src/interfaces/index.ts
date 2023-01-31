@@ -47,3 +47,11 @@ export interface IExercise {
   exerciseFileToBase64?: string;
   rightAnswer: string;
 }
+
+export interface IRanking {
+  position: number;
+  userEmail: string;
+  totalQuestions: number;
+  rightAnswers: number;
+  hitRatio: number;
+}

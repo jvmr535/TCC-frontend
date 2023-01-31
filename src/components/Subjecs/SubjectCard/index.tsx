@@ -55,13 +55,7 @@ const SubjectCard: React.FC<ISubjectCard> = ({
 
   const total = () => quizzesResults[subjectNameInEnglish].total;
   const rightAnswers = () => quizzesResults[subjectNameInEnglish].right;
-  const hitRate = () => {
-    const value = Math.round((rightAnswers() / total()) * 100);
-    if (!value) {
-      return null;
-    }
-    return value;
-  };
+  const hitRate = () => Math.round((rightAnswers() * 100) / total());
 
   const quizGeneration = () => (
     <>
@@ -90,14 +84,14 @@ const SubjectCard: React.FC<ISubjectCard> = ({
   const quizResults = () =>
     quizzesResults ? (
       <SubjectCardContent>
-        {hitRate() ? (
-          <>
-            <Typography>{`Total: ${total()}`}</Typography>
-            <Typography>{`Acertos: ${rightAnswers()} (${hitRate()}%)`}</Typography>
-          </>
-        ) : (
+        {/* {hitRate() ? ( */}
+        <>
+          <Typography>{`Total: ${total()}`}</Typography>
+          <Typography>{`Acertos: ${rightAnswers()} (${hitRate()}%)`}</Typography>
+        </>
+        {/* ) : (
           <p>Nenhum exercício realizado</p>
-        )}
+        )} */}
       </SubjectCardContent>
     ) : (
       <ExerciseAmountCircularProgress size={16} />

@@ -1,5 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { FormControl, Input, MenuItem, Select } from "@mui/material";
+import React, { useState } from "react";
+import {
+  Button,
+  FormControl,
+  Input,
+  InputLabel,
+  MenuItem,
+  Select,
+} from "@mui/material";
 
 import { AddExercisesContainer } from "./styles";
 import { IExercise } from "../../interfaces";
@@ -11,10 +18,6 @@ const AddExercises: React.FC = () => {
     rightAnswer: "",
     subject: "",
   });
-
-  useEffect(() => {
-    console.log(exercise);
-  }, [exercise]);
 
   const subjects = [
     { subjectValue: "english", nameInPortuguese: "Inglês" },
@@ -64,9 +67,13 @@ const AddExercises: React.FC = () => {
         type="file"
         name="Escolha uma imagem de exercício"
         onChange={handleChangeInputImage}
+        sx={{ marginBottom: 2 }}
       />
 
-      <FormControl>
+      <FormControl sx={{ marginBottom: 2 }}>
+        <InputLabel id="demo-simple-select-helper-label">
+          Área do conhecimento
+        </InputLabel>
         <Select
           value={exercise.subject}
           placeholder={exercise.subject}
@@ -84,7 +91,10 @@ const AddExercises: React.FC = () => {
         </Select>
       </FormControl>
 
-      <FormControl>
+      <FormControl sx={{ marginBottom: 2 }}>
+        <InputLabel id="demo-simple-select-helper-label">
+          Alternativa correta
+        </InputLabel>
         <Select
           value={exercise.rightAnswer}
           placeholder={exercise.rightAnswer}
@@ -98,6 +108,10 @@ const AddExercises: React.FC = () => {
           ))}
         </Select>
       </FormControl>
+
+      <Button sx={{ color: "black", borderColor: "black" }} variant="outlined">
+        Registrar questão
+      </Button>
     </AddExercisesContainer>
   );
 };

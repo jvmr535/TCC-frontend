@@ -45,7 +45,7 @@ const Header: React.FC = () => {
           />
           <div style={{ padding: "15px" }}></div>
           <Title variant="h6" sx={{ flexGrow: 1, width: "0px" }}>
-            Enem Experience
+            Simulador
           </Title>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) =>
